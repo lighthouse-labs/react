@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="build/JSXTransformer.js"></script>
+	<script type="text/javascript" src="build/react.js"></script>
+</head>
+<body>
+
+</body>
+</html>
+
+<script type="text/jsx">
+
+	var Hello = React.createClass({
+		getInitialState: function(){
+			return {
+				text:"Hola!"
+			}
+		},
+		changeState: function(e){
+			// console.log('changeState',e);
+			// setState
+			this.setState({
+				text:this.refs.textInput.getDOMNode().value
+			})
+
+			// console.log();
+		},
+		render: function(){
+			//How do I display this?
+			// console.log(this);
+			// <h1>{this.state.text}</h1>
+			// <input ref="textInput" type="text" onChange={this.changeState}></input>
+			return (<div>
+						<h1>{this.props.text}</h1>
+					</div>)
+			// return React.createElement("h1",null,"Hello World");
+		}
+	})
+
+	var Greeting = React.createClass({
+		componentDidMount: function(){
+			console.log('componentDidMount');
+		},
+		componentWillMount: function(){
+			console.log('componentWillMount');
+		},
+		render: function(){
+			// console.log(this);
+			console.log('render');
+			return (
+					<div>
+						<Hello text="Word"/>
+						<Hello text="Bonjour"/>
+						<Hello text="Hola"/>
+					</div>
+					)
+		}
+	})
+
+	var Component1 = React.createClass({
+		render: function(){
+			return <h1> Component1 {this.props.counter} </h1>
+		}
+	})
+
+	var Component2 = React.createClass({
+		render: function(){
+			return (
+						<div>
+							<h1> Component2 </h1>
+							<button onClick={this.props.incrementCounter}>Increment</button> <br/>
+						</div>	
+					)
+		}
+	})
+
+	var Parent = React.createClass({
+		getInitialState: function(){
+			return {
+				counter:0
+			}
+		},
+		incrementCounter: function(){
+			this.setState({
+				counter:++this.state.counter
+			})
+		},
+		render: function(){
+			return (<div>
+						<h1> Parent </h1>
+						<Component1 counter={this.state.counter}/>
+						<Component2 incrementCounter={this.incrementCounter}/>
+					</div>
+					)
+		}
+	})
+
+	React.render(<Parent/>,document.body)
+	// console.log(React);
+</script>
+
+<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
